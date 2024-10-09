@@ -1,27 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Sidebar } from './features/sidebar';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useNav } from './entities/nav/nav.model';
+import { Page, PageTabs } from './entities/nav/entities';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Sidebar/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {useNav().map((item: Page) => (
+          item.tabs == undefined
+            ? <Route path={item.link} element={item.component} />
+            : <Route path={item.link} element={item.component}>
+                {item.tabs.map((tab: PageTabs) => (
+                  <Route path={tab.link} element={tab.component}/>
+                ))}
+              </Route>
+        ))}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

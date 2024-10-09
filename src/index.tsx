@@ -10,7 +10,7 @@ import { HomePage } from './pages/home';
 ReactDOM.createRoot(document.querySelector("#root")!).render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
-      <HomePage />
+      <App/>
     </StyledEngineProvider>
   </React.StrictMode>
 );
